@@ -6,7 +6,7 @@
   Godot-based program and GDExtension for rendering, tracking, and lip-syncing various VTube models and environments.
 </p>
 
-> [!WARNING] Attention!
+> [!WARNING]
 > This project is very unstable and under development. Use on your own risk!
 
 -----
