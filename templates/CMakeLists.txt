@@ -1,40 +1,20 @@
 # SPDX-License-Identifier: Unlicense
 
-add_custom_target(templates SOURCES
-  template.debug.gdextension.in
-  template.release.gdextension.in
-)
+add_custom_target(templates SOURCES template.gdextension.in)
 
 add_dependencies( ${PROJECT_NAME} templates )
 
-# We shouldn't be relying on CMAKE_BUILD_TYPE (see https://github.com/asmaloney/GDExtensionTemplate/issues/25)
-# But until we fix it here and in godot-cpp, ensure it's one we expect.
-set ( ALLOWED_BUILDS "Debug;Release" )
-if ( NOT "${CMAKE_BUILD_TYPE}" IN_LIST ALLOWED_BUILDS )
-    message( FATAL_ERROR "CMAKE_BUILD_TYPE must be set to Debug or Release" )
-endif()
-
-# Get our gdextension input file name based on build type
-string( TOLOWER ${CMAKE_BUILD_TYPE} BUILD_TYPE )
-set( GD_EXTENSION_FILE_INPUT template.${BUILD_TYPE}.gdextension.in )
-
-# Workaround to add the "lib" prefix to the library in our template file if using MSYS2.
-if ( MINGW )
-    set( LIB_PREFIX "lib")
-endif()
-
-# Generate our project's .gdextension file from the template
-set( GD_EXTENSION_FILE ${PROJECT_NAME}.gdextension )
-configure_file( ${GD_EXTENSION_FILE_INPUT} ${BUILD_OUTPUT_DIR}/bin/${GD_EXTENSION_FILE} )
-
-# Install the gdextension file from the build directory
-install(
-    FILES ${BUILD_OUTPUT_DIR}/${GD_EXTENSION_FILE}
-    DESTINATION ${INSTALL_DIR}
+set(ENTRY_SYMBOL "${PROJECT_NAME}_extension_init")
+set(GD_EXTENSION_FILE ${PROJECT_NAME}.gdextension)
+configure_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/template.gdextension.in
+  ${BUILD_OUTPUT_DIR}/lib${GD_EXTENSION_FILE}
+  @ONLY
 )
 
-unset( ALLOWED_BUILDS )
-unset( BUILD_TYPE )
-unset( GD_EXTENSION_FILE )
-unset( GD_EXTENSION_FILE_INPUT )
-unset( LIB_PREFIX )
+install(FILES ${BUILD_OUTPUT_DIR}/${GD_EXTENSION_FILE} DESTINATION ${INSTALL_DIR})
+
+
+
+unset(GD_EXTENSION_FILE)
+unset(ENTRY_SYMBOL)

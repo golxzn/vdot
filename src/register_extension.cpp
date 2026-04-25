@@ -81,7 +81,7 @@ namespace {
 ///
 /// @param p_level the level being initialized by Godot
 ///
-/// @see GDExtensionInit
+/// @see vdot_extension_init
 void initializeExtension(ModuleInitializationLevel p_level) {
   if (p_level == MODULE_INITIALIZATION_LEVEL_SERVERS) {
     ARKit::_init_arkit_shape_names();
@@ -257,7 +257,7 @@ void initializeExtension(ModuleInitializationLevel p_level) {
 
 /// @brief Called by Godot to let us do any cleanup.
 ///
-/// @see GDExtensionInit
+/// @see vdot_extension_init
 void uninitializeExtension(ModuleInitializationLevel p_level) {
   if (p_level == MODULE_INITIALIZATION_LEVEL_SCENE) {
     memdelete(model_loader);
@@ -281,7 +281,7 @@ extern "C" {
 /// @param r_initialization the intialization (need more info)
 ///
 /// @returns GDExtensionBool
-GDExtensionBool GDE_EXPORT GDExtensionInit(
+GDExtensionBool GDE_EXPORT vdot_extension_init(
   GDExtensionInterfaceGetProcAddress p_get_proc_address,
   GDExtensionClassLibraryPtr         p_library,
   GDExtensionInitialization         *r_initialization

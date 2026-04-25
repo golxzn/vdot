@@ -239,7 +239,7 @@ FaceTracker::FaceTracker() {
 
   // Construct the input parameters derived from the facial tracker.
   for (int i = 0; i < UnifiedExpressions::BlendShape::FT_MAX; i++) {
-    auto blend_shape = static_cast<UnifiedExpressions::BlendShape const>(i);
+    auto const blend_shape = static_cast<UnifiedExpressions::BlendShape>(i);
 
     godot::Ref<InputParameter> param;
     param.instantiate();
@@ -316,7 +316,7 @@ void FaceTracker::set_blend_shapes(
   memcpy(blend_shape_values, p_blend_shapes.ptr(), sizeof(blend_shape_values));
 
   for (int i = 0; i < UnifiedExpressions::BlendShape::FT_MAX; i++) {
-    auto blend_shape = static_cast<UnifiedExpressions::BlendShape const>(i);
+    auto const blend_shape = static_cast<UnifiedExpressions::BlendShape>(i);
 
     blend_shape_parameters[blend_shape]->set_parameter_value(
       blend_shape_values[blend_shape]

@@ -16,7 +16,7 @@
 
 
     {
-      "name": "gcc-x64",
+      "name": "gcc",
       "hidden": true,
       "inherits": "ninja-default",
       "cacheVariables": {
@@ -25,17 +25,17 @@
       }
     },
     {
-      "name": "gcc-x64-debug",
+      "name": "gcc-debug",
       "displayName": "GCC 64bit (Debug)",
-      "inherits": "gcc-x64",
+      "inherits": "gcc",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },
     {
-      "name": "gcc-x64-release",
+      "name": "gcc-release",
       "displayName": "GCC 64bit (Release)",
-      "inherits": "gcc-x64",
+      "inherits": "gcc",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
@@ -43,7 +43,7 @@
 
 
     {
-      "name": "clang-x64",
+      "name": "clang",
       "hidden": true,
       "inherits": "ninja-default",
       "cacheVariables": {
@@ -52,17 +52,17 @@
       }
     },
     {
-      "name": "clang-x64-debug",
+      "name": "clang-debug",
       "displayName": "Clang 64bit (Debug)",
-      "inherits": "clang-x64",
+      "inherits": "clang",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },
     {
-      "name": "clang-x64-release",
+      "name": "clang-release",
       "displayName": "Clang 64bit (Release)",
-      "inherits": "clang-x64",
+      "inherits": "clang",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
@@ -70,7 +70,7 @@
 
 
     {
-      "name": "msvc-x64",
+      "name": "msvc",
       "hidden": true,
       "inherits": "ninja-default",
       "condition": {
@@ -93,20 +93,49 @@
     },
 
     {
-      "name": "msvc-x64-debug",
+      "name": "msvc-debug",
       "displayName": "MSVC 64bit (Debug)",
-      "inherits": "msvc-x64",
+      "inherits": "msvc",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },
     {
-      "name": "msvc-x64-release",
+      "name": "msvc-release",
       "displayName": "MSVC 64bit (Release)",
-      "inherits": "msvc-x64",
+      "inherits": "msvc",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
     }
+  ],
+  "buildPresets": [
+    {
+      "name": "build-vdot-base",
+      "hidden": true,
+      "targets": [ "vdot" ]
+    },
+    {
+      "name": "build-vdot-debug",
+      "hidden": true,
+      "inherits": "build-vdot-base",
+      "configuration": "Debug"
+    },
+    {
+      "name": "build-vdot-release",
+      "hidden": true,
+      "inherits": "build-vdot-base",
+      "configuration": "Release"
+    },
+
+    { "name": "build-vdot-gcc-debug", "inherits": "build-vdot-debug", "configurePreset": "gcc-debug" },
+    { "name": "build-vdot-gcc-release", "inherits": "build-vdot-release", "configurePreset": "gcc-release" },
+
+    { "name": "build-vdot-clang-debug", "inherits": "build-vdot-debug", "configurePreset": "clang-debug" },
+    { "name": "build-vdot-clang-release", "inherits": "build-vdot-release", "configurePreset": "clang-release" },
+
+    { "name": "build-vdot-msvc-debug", "inherits": "build-vdot-debug", "configurePreset": "msvc-debug" },
+    { "name": "build-vdot-msvc-release", "inherits": "build-vdot-release", "configurePreset": "msvc-release" }
+
   ]
 }

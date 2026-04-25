@@ -58,6 +58,12 @@ include(GodotCPPModule)
 get_target_property(GODOTCPP_SUFFIX godot::cpp GODOTCPP_SUFFIX)
 get_target_property(GODOTCPP_PLATFORM godot::cpp GODOTCPP_PLATFORM)
 
+# ========================= cubism-sdk ========================= #
+# From here: https://github.com/Live2D/CubismNativeFramework
+# Set directory paths.
+
+include(cmake/CubismSDK.cmake)
+
 # ========================= main target ========================= #
 
 # Create our library
@@ -83,11 +89,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 target_link_libraries(${PROJECT_NAME}
   PRIVATE
     godot-cpp
+    Framework # CubismSDK
 )
-
-if(NOT DEFINED CMAKE_DEBUG_POSTFIX)
-  set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "-d")
-endif()
 
 # Copy over additional files from the support_files directory
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -105,7 +108,6 @@ add_custom_target(install_${PROJECT_NAME}
 
 # Warnings
 include( CompilerWarnings )
-
 # Create and include version info file from git
 include( GitVersionInfo )
 
@@ -130,15 +132,6 @@ add_subdirectory(templates)
 
 include(ccache)
 include(ClangFormat)
-
-
-# cubism-sdk
-# From here: https://github.com/Live2D/CubismNativeFramework
-# Set directory paths.
-
-include(cmake/CubismSDK.cmake)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE Framework)
 
 
 if (PROJECT_IS_TOP_LEVEL AND UNIX)

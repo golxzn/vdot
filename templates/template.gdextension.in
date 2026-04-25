@@ -1,0 +1,59 @@
+[configuration]
+
+entry_symbol = "@ENTRY_SYMBOL@"
+compatibility_minimum = "4.5"
+
+[icons]
+Example = "./icons/Example.svg"
+
+[libraries]
+; Relative paths ensure that our GDExtension can be placed anywhere in the project directory.
+macos.single.debug = "./bin/macos/lib@PROJECT_NAME@.macos.template_debug.dylib"
+macos.double.debug = "./bin/macos/lib@PROJECT_NAME@.macos.template_debug.double.dylib"
+macos.single.release = "./bin/macos/lib@PROJECT_NAME@.macos.template_release.dylib"
+macos.double.release = "./bin/macos/lib@PROJECT_NAME@.macos.template_release.double.dylib"
+
+ios.arm64.single.debug = "./bin/ios/lib@PROJECT_NAME@.ios.template_debug.arm64.dylib"
+ios.arm64.double.debug = "./bin/ios/lib@PROJECT_NAME@.ios.template_debug.arm64.double.dylib"
+ios.arm64.single.release = "./bin/ios/lib@PROJECT_NAME@.ios.template_release.arm64.dylib"
+ios.arm64.double.release = "./bin/ios/lib@PROJECT_NAME@.ios.template_release.arm64.double.dylib"
+
+windows.x86_32.single.debug = "./bin/windows/@PROJECT_NAME@.windows.template_debug.x86_32.dll"
+windows.x86_32.double.debug = "./bin/windows/@PROJECT_NAME@.windows.template_debug.x86_32.double.dll"
+windows.x86_32.single.release = "./bin/windows/@PROJECT_NAME@.windows.template_release.x86_32.dll"
+windows.x86_32.double.release = "./bin/windows/@PROJECT_NAME@.windows.template_release.x86_32.double.dll"
+
+windows.x86_64.single.debug = "./bin/windows/@PROJECT_NAME@.windows.template_debug.x86_64.dll"
+windows.x86_64.double.debug = "./bin/windows/@PROJECT_NAME@.windows.template_debug.x86_64.double.dll"
+windows.x86_64.single.release = "./bin/windows/@PROJECT_NAME@.windows.template_release.x86_64.dll"
+windows.x86_64.double.release = "./bin/windows/@PROJECT_NAME@.windows.template_release.x86_64.double.dll"
+
+linux.x86_64.single.debug = "./bin/linux/@PROJECT_NAME@.linux.template_debug.x86_64.so"
+linux.x86_64.double.debug = "./bin/linux/@PROJECT_NAME@.linux.template_debug.x86_64.double.so"
+linux.x86_64.single.release = "./bin/linux/@PROJECT_NAME@.linux.template_release.x86_64.so"
+linux.x86_64.double.release = "./bin/linux/@PROJECT_NAME@.linux.template_release.x86_64.double.so"
+
+linux.arm64.single.debug = "./bin/linux/@PROJECT_NAME@.linux.template_debug.arm64.so"
+linux.arm64.double.debug = "./bin/linux/@PROJECT_NAME@.linux.template_debug.arm64.double.so"
+linux.arm64.single.release = "./bin/linux/@PROJECT_NAME@.linux.template_release.arm64.so"
+linux.arm64.double.release = "./bin/linux/@PROJECT_NAME@.linux.template_release.arm64.double.so"
+
+linux.rv64.single.debug = "./bin/linux/@PROJECT_NAME@.linux.template_debug.rv64.so"
+linux.rv64.double.debug = "./bin/linux/@PROJECT_NAME@.linux.template_debug.rv64.double.so"
+linux.rv64.single.release = "./bin/linux/@PROJECT_NAME@.linux.template_release.rv64.so"
+linux.rv64.double.release = "./bin/linux/@PROJECT_NAME@.linux.template_release.rv64.double.so"
+
+android.x86_64.single.debug = "./bin/android/lib@PROJECT_NAME@.android.template_debug.x86_64.so"
+android.x86_64.double.debug = "./bin/android/lib@PROJECT_NAME@.android.template_debug.x86_64.double.so"
+android.x86_64.single.release = "./bin/android/lib@PROJECT_NAME@.android.template_release.x86_64.so"
+android.x86_64.double.release = "./bin/android/lib@PROJECT_NAME@.android.template_release.x86_64.double.so"
+
+android.arm64.single.debug = "./bin/android/lib@PROJECT_NAME@.android.template_debug.arm64.so"
+android.arm64.double.debug = "./bin/android/lib@PROJECT_NAME@.android.template_debug.arm64.double.so"
+android.arm64.single.release = "./bin/android/lib@PROJECT_NAME@.android.template_release.arm64.so"
+android.arm64.double.release = "./bin/android/lib@PROJECT_NAME@.android.template_release.arm64.double.so"
+
+web.wasm32.single.debug = "./bin/web/lib@PROJECT_NAME@.web.template_debug.wasm32.nothreads.wasm"
+web.wasm32.double.debug = "./bin/web/lib@PROJECT_NAME@.web.template_debug.wasm32.double.nothreads.wasm"
+web.wasm32.single.release = "./bin/web/lib@PROJECT_NAME@.web.template_release.wasm32.nothreads.wasm"
+web.wasm32.double.release = "./bin/web/lib@PROJECT_NAME@.web.template_release.wasm32.double.nothreads.wasm"
