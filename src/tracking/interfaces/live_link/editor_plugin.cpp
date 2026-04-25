@@ -5,10 +5,6 @@
 
 void LiveLinkEditorPlugin::_bind_methods() {}
 
-LiveLinkEditorPlugin::~LiveLinkEditorPlugin() {
-  if (_panel != nullptr) { _panel->queue_free(); }
-}
-
 void LiveLinkEditorPlugin::_make_visible(bool visible) {
   EditorPlugin::_make_visible(visible);
 

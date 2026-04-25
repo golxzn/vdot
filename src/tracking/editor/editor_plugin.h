@@ -16,7 +16,7 @@ class TrackingEditorPlugin : public godot::EditorPlugin {
     static void _bind_methods();
 
   public:
-    ~TrackingEditorPlugin();
+    ~TrackingEditorPlugin() = default;
 
     [[nodiscard]] godot::String _get_plugin_name() const override {
         return "Tracking";

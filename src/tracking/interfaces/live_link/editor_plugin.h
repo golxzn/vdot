@@ -16,7 +16,7 @@ class LiveLinkEditorPlugin : public godot::EditorPlugin {
     static void _bind_methods();
 
   public:
-    ~LiveLinkEditorPlugin();
+    ~LiveLinkEditorPlugin() = default;
 
     [[nodiscard]] godot::String _get_plugin_name() const override {
         return "LiveLink";

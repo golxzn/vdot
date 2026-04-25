@@ -5,10 +5,6 @@
 
 void TrackingEditorPlugin::_bind_methods() {}
 
-TrackingEditorPlugin::~TrackingEditorPlugin() {
-  if (_panel != nullptr) { _panel->queue_free(); }
-}
-
 void TrackingEditorPlugin::_make_visible(bool visible) {
   EditorPlugin::_make_visible(visible);
 
