@@ -3,8 +3,11 @@
 </h1>
 
 <p align="center" style="text-align: center;">
-  Godot-based program and GDExtension for rendering, tracking, and lip-syncing various VTube models and environments.  
+  Godot-based program and GDExtension for rendering, tracking, and lip-syncing various VTube models and environments.
 </p>
+
+> [!WARNING] Attention!
+> This project is very unstable and under development. Use on your own risk!
 
 -----
 

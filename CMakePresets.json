@@ -2,28 +2,80 @@
   "version": 5,
   "cmakeMinimumRequired": {
     "major": 3,
-    "minor": 23,
+    "minor": 25,
     "patch": 0
   },
   "configurePresets": [
     {
-      "name": "default",
-      "displayName": "default",
+      "name": "ninja-default",
       "description": "Default preset that are inherited by all",
       "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "hidden": true
+    },
+
+
+    {
+      "name": "gcc-x64",
       "hidden": true,
-      "environment": {
-        "PROJECT_NAME": "MyGodotExtention"
+      "inherits": "ninja-default",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "g++",
+        "CMAKE_C_COMPILER": "gcc"
       }
     },
     {
-      "name": "windows-debug",
-      "displayName": "64bit Windows Debug",
-      "inherits": "default",
-      "binaryDir": "${sourceDir}/../build_${env:PROJECT_NAME}_Windows-AMD64",
+      "name": "gcc-x64-debug",
+      "displayName": "GCC 64bit (Debug)",
+      "inherits": "gcc-x64",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "gcc-x64-release",
+      "displayName": "GCC 64bit (Release)",
+      "inherits": "gcc-x64",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+
+
+    {
+      "name": "clang-x64",
+      "hidden": true,
+      "inherits": "ninja-default",
+      "cacheVariables": {
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_C_COMPILER": "clang"
+      }
+    },
+    {
+      "name": "clang-x64-debug",
+      "displayName": "Clang 64bit (Debug)",
+      "inherits": "clang-x64",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "clang-x64-release",
+      "displayName": "Clang 64bit (Release)",
+      "inherits": "clang-x64",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
+      }
+    },
+
+
+    {
+      "name": "msvc-x64",
+      "hidden": true,
+      "inherits": "ninja-default",
       "condition": {
-        "type": "equals",
         "lhs": "${hostSystemName}",
+        "type": "equals",
         "rhs": "Windows"
       },
       "toolset": {
@@ -36,62 +88,22 @@
       },
       "cacheVariables": {
         "CMAKE_C_COMPILER": "cl.exe",
-        "CMAKE_CXX_COMPILER": "cl.exe",
+        "CMAKE_CXX_COMPILER": "cl.exe"
+      }
+    },
+
+    {
+      "name": "msvc-x64-debug",
+      "displayName": "MSVC 64bit (Debug)",
+      "inherits": "msvc-x64",
+      "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },
     {
-      "name": "windows-release",
-      "displayName": "64bit Windows Release",
-      "inherits": "windows-debug",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
-      }
-    },
-    {
-      "name": "linux-debug",
-      "displayName": "64bit Linux Debug",
-      "inherits": "default",
-      "binaryDir": "${sourceDir}/../build_${env:PROJECT_NAME}_Linux-x86_64",
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Linux"
-      },
-      "cacheVariables": {
-        "CMAKE_CXX_COMPILER": "g++",
-        "CMAKE_C_COMPILER": "gcc",
-        "CMAKE_BUILD_TYPE": "Debug"
-      }
-    },
-    {
-      "name": "linux-release",
-      "displayName": "64bit Linux Release",
-      "inherits": "linux-debug",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
-      }
-    },
-    {
-      "name": "macOS-debug",
-      "displayName": "64bit macOS Debug",
-      "inherits": "default",
-      "binaryDir": "${sourceDir}/../build_${env:PROJECT_NAME}_Darwin-Universal",
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Darwin"
-      },
-      "cacheVariables": {
-        "CMAKE_CXX_COMPILER": "clang++",
-        "CMAKE_C_COMPILER": "clang",
-        "CMAKE_BUILD_TYPE": "Debug"
-      }
-    },
-    {
-      "name": "macOS-release",
-      "displayName": "64bit macOS Release",
-      "inherits": "macOS-debug",
+      "name": "msvc-x64-release",
+      "displayName": "MSVC 64bit (Release)",
+      "inherits": "msvc-x64",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }

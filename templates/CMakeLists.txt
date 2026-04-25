@@ -1,9 +1,8 @@
 # SPDX-License-Identifier: Unlicense
 
-add_custom_target( templates
-    SOURCES
-        template.debug.gdextension.in
-        template.release.gdextension.in
+add_custom_target(templates SOURCES
+  template.debug.gdextension.in
+  template.release.gdextension.in
 )
 
 add_dependencies( ${PROJECT_NAME} templates )
@@ -26,7 +25,7 @@ endif()
 
 # Generate our project's .gdextension file from the template
 set( GD_EXTENSION_FILE ${PROJECT_NAME}.gdextension )
-configure_file( ${GD_EXTENSION_FILE_INPUT} ${PROJECT_BINARY_DIR}/${PROJECT_NAME}/${GD_EXTENSION_FILE} )
+configure_file( ${GD_EXTENSION_FILE_INPUT} ${BUILD_OUTPUT_DIR}/bin/${GD_EXTENSION_FILE} )
 
 # Install the gdextension file from the build directory
 install(

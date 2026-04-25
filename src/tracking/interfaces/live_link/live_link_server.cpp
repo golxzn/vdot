@@ -878,7 +878,7 @@ godot::Error LiveLinkServer::poll() {
 
     godot::Array resolved_peers;
     for ( int peer_idx = 0; peer_idx < _unidentified_clients.size(); peer_idx++ ) {
-        auto &peer = _unidentified_clients[peer_idx];
+        auto &peer = _unidentified_clients.get(peer_idx);
 
         auto packet_count = peer->get_available_packet_count();
 
@@ -932,7 +932,7 @@ godot::Error LiveLinkServer::poll() {
         PeerList temp_unidentified;
         for ( int peer_idx = 0; peer_idx < _unidentified_clients.size(); peer_idx++ ) {
             if ( resolved_peers.find( peer_idx ) == -1 ) {
-                temp_unidentified.push_back( _unidentified_clients[peer_idx] );
+                temp_unidentified.push_back( _unidentified_clients.get(peer_idx) );
             }
         }
 
