@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://db6s5ob3rvi4k" path="res://app/ui/app_theme.tres" id="3_72s4j"]
 [ext_resource type="PackedScene" uid="uid://con8gt818tbhy" path="res://app/ui/tracking/live_link.tscn" id="4_pd7c2"]
 [ext_resource type="PackedScene" uid="uid://cm87t18y8ifj8" path="res://app/ui/tracking/v_tube_studio.tscn" id="5_m1yyw"]
-[ext_resource type="Script" path="res://app/add_avatar_window.gd" id="6_ivqks"]
+[ext_resource type="Script" uid="uid://32egcrmqy8hf" path="res://app/add_avatar_window.gd" id="6_ivqks"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jmqv"]
 bg_color = Color(0, 0, 0, 1)
@@ -90,6 +90,16 @@ text_overrun_behavior = 3
 [node name="Environment" type="Node2D" parent="."]
 
 [node name="AvatarManager" type="AvatarManager" parent="Environment"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = null
 
 [node name="Item" type="Node2D" parent="Environment"]
 
@@ -127,10 +137,31 @@ visible = false
 layout_mode = 2
 
 [node name="TrackingManagerNode" type="TrackingManagerNode" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = null
 
 [node name="CollaborationSession" type="CollaborationSession" parent="."]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+script = null
 
 [node name="AddAvatarWindow" type="Window" parent="." node_paths=PackedStringArray("avatar_manager")]
+oversampling_override = 1.0
 initial_position = 1
 size = Vector2i(500, 400)
 script = ExtResource("6_ivqks")
@@ -165,6 +196,7 @@ text = "Model Type "
 layout_mode = 2
 item_count = 1
 popup/item_0/text = "Example Model"
+popup/item_0/id = 0
 
 [node name="LoadModelButton" type="Button" parent="AddAvatarWindow/VBoxContainer/ModelSetup/HBoxContainer"]
 layout_mode = 2

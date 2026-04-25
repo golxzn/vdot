@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://th2bxd6n5yea"]
 
-[ext_resource type="Script" path="res://app/ui/tracking/facial/facial_tracker_settings.gd" id="1_6v6im"]
+[ext_resource type="Script" uid="uid://dupxyg88mlkqh" path="res://app/ui/tracking/facial/facial_tracker_settings.gd" id="1_6v6im"]
 [ext_resource type="ArrayMesh" uid="uid://88rqvljwpou0" path="res://app/ui/tracking/facial/preview_head_mesh.res" id="1_mluni"]
 
 [sub_resource type="Environment" id="Environment_wjoyi"]
@@ -61,62 +61,62 @@ stretch = true
 own_world_3d = true
 world_3d = SubResource("World3D_hmqux")
 handle_input_locally = false
-size = Vector2i(2, 2)
+size = Vector2i(128, 648)
 render_target_update_mode = 4
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PreviewContainer/PreviewTexture/PreviewViewport"]
 mesh = ExtResource("1_mluni")
+blend_shapes/browInnerUp = 0.0
 blend_shapes/browDownLeft = 0.0
 blend_shapes/browDownRight = 0.0
-blend_shapes/browInnerUp = 0.0
 blend_shapes/browOuterUpLeft = 0.0
 blend_shapes/browOuterUpRight = 0.0
-blend_shapes/cheekPuff = 0.0
-blend_shapes/cheekSquintLeft = 0.0
-blend_shapes/cheekSquintRight = 0.0
-blend_shapes/eyeBlinkLeft = 0.0
-blend_shapes/eyeBlinkRight = 0.0
+blend_shapes/eyeLookUpLeft = 0.0
+blend_shapes/eyeLookUpRight = 0.0
 blend_shapes/eyeLookDownLeft = 0.0
 blend_shapes/eyeLookDownRight = 0.0
 blend_shapes/eyeLookInLeft = 0.0
 blend_shapes/eyeLookInRight = 0.0
 blend_shapes/eyeLookOutLeft = 0.0
 blend_shapes/eyeLookOutRight = 0.0
-blend_shapes/eyeLookUpLeft = 0.0
-blend_shapes/eyeLookUpRight = 0.0
+blend_shapes/eyeBlinkLeft = 0.0
+blend_shapes/eyeBlinkRight = 0.0
 blend_shapes/eyeSquintLeft = 0.0
 blend_shapes/eyeSquintRight = 0.0
 blend_shapes/eyeWideLeft = 0.0
 blend_shapes/eyeWideRight = 0.0
+blend_shapes/cheekPuff = 0.0
+blend_shapes/cheekSquintLeft = 0.0
+blend_shapes/cheekSquintRight = 0.0
+blend_shapes/noseSneerLeft = 0.0
+blend_shapes/noseSneerRight = 0.0
+blend_shapes/jawOpen = 0.0
 blend_shapes/jawForward = 0.0
 blend_shapes/jawLeft = 0.0
-blend_shapes/jawOpen = 0.0
 blend_shapes/jawRight = 0.0
+blend_shapes/mouthFunnel = 0.0
+blend_shapes/mouthPucker = 0.0
+blend_shapes/mouthLeft = 0.0
+blend_shapes/mouthRight = 0.0
+blend_shapes/mouthRollUpper = 0.0
+blend_shapes/mouthRollLower = 0.0
+blend_shapes/mouthShrugUpper = 0.0
+blend_shapes/mouthShrugLower = 0.0
 blend_shapes/mouthClose = 0.0
-blend_shapes/mouthDimpleLeft = 0.0
-blend_shapes/mouthDimpleRight = 0.0
+blend_shapes/mouthSmileLeft = 0.0
+blend_shapes/mouthSmileRight = 0.0
 blend_shapes/mouthFrownLeft = 0.0
 blend_shapes/mouthFrownRight = 0.0
-blend_shapes/mouthFunnel = 0.0
-blend_shapes/mouthLeft = 0.0
+blend_shapes/mouthDimpleLeft = 0.0
+blend_shapes/mouthDimpleRight = 0.0
+blend_shapes/mouthUpperUpLeft = 0.0
+blend_shapes/mouthUpperUpRight = 0.0
 blend_shapes/mouthLowerDownLeft = 0.0
 blend_shapes/mouthLowerDownRight = 0.0
 blend_shapes/mouthPressLeft = 0.0
 blend_shapes/mouthPressRight = 0.0
-blend_shapes/mouthPucker = 0.0
-blend_shapes/mouthRight = 0.0
-blend_shapes/mouthRollLower = 0.0
-blend_shapes/mouthRollUpper = 0.0
-blend_shapes/mouthShrugLower = 0.0
-blend_shapes/mouthShrugUpper = 0.0
-blend_shapes/mouthSmileLeft = 0.0
-blend_shapes/mouthSmileRight = 0.0
 blend_shapes/mouthStretchLeft = 0.0
 blend_shapes/mouthStretchRight = 0.0
-blend_shapes/mouthUpperUpLeft = 0.0
-blend_shapes/mouthUpperUpRight = 0.0
-blend_shapes/noseSneerLeft = 0.0
-blend_shapes/noseSneerRight = 0.0
 blend_shapes/tongueOut = 0.0
 
 [node name="Camera3D" type="Camera3D" parent="PreviewContainer/PreviewTexture/PreviewViewport"]

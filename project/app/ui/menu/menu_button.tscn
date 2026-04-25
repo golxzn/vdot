@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b1og747hsnjrt"]
 
 [ext_resource type="Theme" uid="uid://daatsmg01tdvn" path="res://app/ui/menubar_theme.tres" id="1_6x2vp"]
-[ext_resource type="Script" path="res://app/ui/menu/menu_button.gd" id="2_xmo4n"]
+[ext_resource type="Script" uid="uid://bu761r6386p5q" path="res://app/ui/menu/menu_button.gd" id="2_xmo4n"]
 [ext_resource type="Texture2D" uid="uid://brye5qxvxirr0" path="res://assets/icons/user-solid.svg" id="3_c6svu"]
 
 [node name="MenuButton" type="Button"]

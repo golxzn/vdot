@@ -22,7 +22,7 @@ func _ready() -> void:
 	
 	input_parameters.clear()
 	for context_id in ParameterServer.list_context_ids():
-		// var context = ParameterServer.contect
+		# var context = ParameterServer.contect
 		for param_id in context.list_parameters():
 			var param = context.get_input_parameter(param_id)
 			input_parameters.add_item("(%s:%s) %s" % [context.context_id, param_id, param.name])

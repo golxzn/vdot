@@ -1,3 +1,5 @@
 [gd_resource type="ModelBundle" format=3 uid="uid://dcrsqnc1h6tvk"]
 
 [resource]
+resource_local_to_scene = false
+resource_name = ""

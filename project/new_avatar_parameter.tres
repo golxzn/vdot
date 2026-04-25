@@ -1,3 +1,5 @@
 [gd_resource type="AvatarParameter" format=3 uid="uid://c6gafu8ifok6n"]
 
 [resource]
+resource_local_to_scene = false
+resource_name = ""

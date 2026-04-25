@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://con8gt818tbhy"]
 
 [ext_resource type="Theme" uid="uid://db6s5ob3rvi4k" path="res://app/ui/app_theme.tres" id="1_try5a"]
-[ext_resource type="Script" path="res://app/ui/tracking/live_link.gd" id="2_xqt7a"]
+[ext_resource type="Script" uid="uid://rsbgcnjb5qac" path="res://app/ui/tracking/live_link.gd" id="2_xqt7a"]
 [ext_resource type="PackedScene" uid="uid://dt8agueqggxt2" path="res://app/ui/tracking/tracker_settings.tscn" id="3_qbsrb"]
-[ext_resource type="Script" path="res://app/ui/tracking/tracker_settings.gd" id="4_wk2ai"]
+[ext_resource type="Script" uid="uid://c85u1xdwhfasa" path="res://app/ui/tracking/tracker_settings.gd" id="4_wk2ai"]
 
 [node name="LiveLink" type="MarginContainer"]
 anchors_preset = 15

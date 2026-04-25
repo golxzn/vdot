@@ -1,8 +1,9 @@
 #include "vdot.h"
 
+#include <godot_cpp/core/class_db.hpp>
+#include <godot_cpp/core/version.hpp>
+
 #include "Version.h"
-#include "godot_cpp/core/class_db.hpp"
-#include "godot_cpp/core/version.hpp"
 
 /// @file
 /// GDExtensionTemplate example implementation.
@@ -30,9 +31,13 @@ The version string is generated using godot-cpp's core/version.hpp.
 @return The version string (e.g. "godot-cpp v4.2.0-stable").
 */
 godot::String VDot::godotCPPVersion() {
-  return "godot-cpp v" + godot::uitos(GODOT_VERSION_MAJOR) + "." +
-         godot::uitos(GODOT_VERSION_MINOR) + "." +
-         godot::uitos(GODOT_VERSION_PATCH) + "-" + GODOT_VERSION_STATUS;
+  return godot::vformat(
+    "godot-cpp v%u.%u.%u-%s",
+    GODOT_VERSION_MAJOR,
+    GODOT_VERSION_MINOR,
+    GODOT_VERSION_PATCH,
+    GODOT_VERSION_STATUS
+  );
 }
 
 /// Bind our methods so GDScript can access them.

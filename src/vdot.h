@@ -1,7 +1,7 @@
 #ifndef VDOT_H
 #define VDOT_H
 
-#include "godot_cpp/classes/object.hpp"
+#include <godot_cpp/classes/object.hpp>
 
 class VDot : public godot::Object {
   GDCLASS(VDot, godot::Object)
