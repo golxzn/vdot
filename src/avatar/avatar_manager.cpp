@@ -1,6 +1,3 @@
-
-
 #include "avatar_manager.h"
 
-void AvatarManager::_bind_methods() {
-}
+void AvatarManager::_bind_methods() {}
