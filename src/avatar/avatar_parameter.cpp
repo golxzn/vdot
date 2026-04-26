@@ -1,6 +1,6 @@
-#include "avatar_parameter.h"
+#include "avatar_parameter.hpp"
 
-#include "parameters/parameter_server.h"
+#include "parameters/parameter_server.hpp"
 
 void AvatarParameter::_bind_methods() {
   godot::ClassDB::bind_method(

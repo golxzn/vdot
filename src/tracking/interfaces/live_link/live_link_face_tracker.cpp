@@ -1,4 +1,4 @@
-#include "live_link_face_tracker.h"
+#include "tracking/interfaces/live_link/live_link_face_tracker.hpp"
 
 void LiveLinkFaceTracker::_bind_methods() {}
 

@@ -108,8 +108,6 @@ add_custom_target(install_${PROJECT_NAME}
 
 # Warnings
 include( CompilerWarnings )
-# Create and include version info file from git
-include( GitVersionInfo )
 
 add_subdirectory( src )
 

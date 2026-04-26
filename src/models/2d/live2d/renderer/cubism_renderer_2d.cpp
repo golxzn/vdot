@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: MIT
 // SPDX-FileCopyrightText: 2024 northernpaws
 
-#include "cubism_renderer_2d.h"
+#include "cubism_renderer_2d.hpp"
 
 #include <CubismFramework.hpp>
 #include <Model/CubismModel.hpp>
@@ -12,8 +12,8 @@
 #include <godot_cpp/classes/shader_material.hpp>
 #include <godot_cpp/classes/viewport_texture.hpp>
 
-#include "cubism_model_proxy.h"
-#include "cubism_renderer.h"
+#include "cubism_model_proxy.hpp"
+#include "cubism_renderer.hpp"
 
 godot::PackedInt32Array make_PackedArrayInt32(
   Live2D::Cubism::Framework::csmUint16 const *ptr,

@@ -1,4 +1,4 @@
-#include "parameter_input.h"
+#include "parameter_input.hpp"
 
 void InputParameter::_bind_methods() {
   ADD_SIGNAL(

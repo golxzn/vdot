@@ -1,4 +1,4 @@
-#include "face_tracker_panel.h"
+#include "face_tracker_panel.hpp"
 
 void FaceTrackerPanel::_bind_methods() {}
 

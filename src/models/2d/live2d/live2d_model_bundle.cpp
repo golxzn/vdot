@@ -1,4 +1,4 @@
-#include "live2d_model_bundle.h"
+#include "models/2d/live2d/live2d_model_bundle.hpp"
 
 #include <CubismFramework.hpp>
 #include <CubismModelSettingJson.hpp>

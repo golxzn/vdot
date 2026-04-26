@@ -1,9 +1,9 @@
-#include "live_link_interface.h"
+#include "live_link_interface.hpp"
 
 #include <godot_cpp/variant/utility_functions.hpp>
 
-#include "../../tracking_server.h"
-#include "live_link_face_tracker.h"
+#include "tracking/interfaces/live_link/live_link_face_tracker.hpp"
+#include "tracking/tracking_server.hpp"
 
 LiveLinkInterface *LiveLinkInterface::singleton = nullptr;
 

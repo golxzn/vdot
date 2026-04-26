@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: MIT
 // SPDX-FileCopyrightText: 2024 northernpaws
 
-#include "cubism_model_proxy.h"
+#include "cubism_model_proxy.hpp"
 
 #include <godot_cpp/classes/file_access.hpp>
 #include <godot_cpp/classes/image.hpp>
@@ -12,8 +12,8 @@
 #include <godot_cpp/classes/resource_loader.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
-#include "cubism_renderer_2d.h"
-#include "models/2d/live2d/cubism.h"
+#include "cubism_renderer_2d.hpp"
+#include "models/2d/live2d/cubism.hpp"
 
 CubismModelProxy::CubismModelProxy(
   CubismModel *owner_viewport,

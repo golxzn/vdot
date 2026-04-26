@@ -1,4 +1,4 @@
-#include "parameter_output.h"
+#include "parameters/parameter_output.hpp"
 
 void OutputParameter::_bind_methods() {
   ADD_SIGNAL(

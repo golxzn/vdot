@@ -1,4 +1,4 @@
-#include "arkit_blend_shapes.h"
+#include "arkit_blend_shapes.hpp"
 
 namespace ARKit {
 

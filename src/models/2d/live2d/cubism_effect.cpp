@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: MIT
 // SPDX-FileCopyrightText: 2024 northernpaws
 
-#include "cubism_effect.h"
+#include "cubism_effect.hpp"
 
 void CubismEffect::_bind_methods() {
   godot::ClassDB::bind_method(

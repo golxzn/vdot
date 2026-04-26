@@ -1,46 +1,47 @@
 # SPDX-License-Identifier: Unlicense
 
-find_program( GIT_PROGRAM git )
+function(generate_git_version_file)
+  cmake_parse_arguments(PARSE_ARGV 0 GGVF
+    "" "TEMPLATE_FILE;OUTPUT_DIRECTORY" ""
+  )
 
-if ( GIT_PROGRAM )
-    # get version information
-    execute_process(
-        COMMAND "${GIT_PROGRAM}" --version
-        OUTPUT_VARIABLE GIT_VERSION
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
+  find_program(GIT_PROGRAM git)
 
-    message( STATUS "Using git: ${GIT_PROGRAM} (${GIT_VERSION})" )
+  if (NOT GIT_PROGRAM)
+    message(WARNING "generate_git_version_file: Failed to find git program")
+    return()
+  endif()
 
-    include( GetGitRevisionDescription )
+  # get version information
+  execute_process(
+    COMMAND "${GIT_PROGRAM}" --version
+    OUTPUT_VARIABLE GIT_VERSION
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+  )
 
-    get_git_head_revision( GIT_REFSPEC GIT_SHA1 )
-    git_describe( GIT_SHORT )
+  include(GetGitRevisionDescription)
 
-    string( TOUPPER ${PROJECT_NAME} UPPER_PROJECT_NAME )
+  get_git_head_revision(GIT_REFSPEC GIT_SHA1)
+  git_describe(GIT_SHORT)
 
-    set( VERSION_INPUT_FILE "src/version.h.in" )
-    set( VERSION_OUTPUT_FILE "${CMAKE_BINARY_DIR}/gen/Version.h" )
+  string(TOUPPER ${PROJECT_NAME} UPPER_PROJECT_NAME)
 
-    configure_file( "${VERSION_INPUT_FILE}" "${VERSION_OUTPUT_FILE}" )
+  get_filename_component(file_name ${GGVF_TEMPLATE_FILE} NAME)
+  string(REPLACE ".in" "" file_name ${file_name})
 
-    target_sources( ${PROJECT_NAME}
-        PRIVATE
-            "${VERSION_INPUT_FILE}"
-            "${VERSION_OUTPUT_FILE}"
-    )
+  message(STATUS "Using git: ${GIT_PROGRAM} (${GIT_VERSION})")
+  message(STATUS "Template file: ${GGVF_TEMPLATE_FILE}")
+  message(STATUS "Output directory: ${GGVF_OUTPUT_DIRECTORY}")
+  message(STATUS "Output file: ${file_name}")
 
-    get_filename_component( VERSION_OUTPUT_FILE_DIR ${VERSION_OUTPUT_FILE} DIRECTORY )
 
-    target_include_directories( ${PROJECT_NAME}
-        PRIVATE
-            ${VERSION_OUTPUT_FILE_DIR}
-    )
+  configure_file(
+    ${GGVF_TEMPLATE_FILE}
+    ${GGVF_OUTPUT_DIRECTORY}/${file_name}
+    @ONLY
+  )
 
-    message( STATUS "${PROJECT_NAME} version: ${GIT_SHORT}" )
+  message(STATUS "${PROJECT_NAME} version: ${GIT_SHORT}")
+  unset(GIT_VERSION)
+endfunction()
 
-    unset( VERSION_INPUT_FILE )
-    unset( VERSION_OUTPUT_FILE )
-    unset( VERSION_OUTPUT_FILE_DIR )
-    unset( GIT_VERSION )
-endif()

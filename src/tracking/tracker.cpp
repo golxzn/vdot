@@ -1,4 +1,4 @@
-#include "tracker.h"
+#include "tracker.hpp"
 
 void Tracker::_bind_methods() {
   godot::ClassDB::bind_method(

@@ -1,4 +1,4 @@
-#include "live_link_panel.h"
+#include "live_link_panel.hpp"
 
 #include <godot_cpp/classes/array_mesh.hpp>
 #include <godot_cpp/classes/base_material3d.hpp>

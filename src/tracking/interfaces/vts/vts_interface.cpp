@@ -1,9 +1,9 @@
-#include "vts_interface.h"
+#include "vts_interface.hpp"
 
 #include <godot_cpp/variant/utility_functions.hpp>
 
-#include "../../tracking_server.h"
-#include "vts_face_tracker.h"
+#include "tracking/tracking_server.hpp"
+#include "vts_face_tracker.hpp"
 
 VTSInterface *VTSInterface::singleton = nullptr;
 

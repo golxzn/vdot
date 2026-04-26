@@ -1,4 +1,4 @@
-#include "editor_plugin.h"
+#include "editor_plugin.hpp"
 
 #include <godot_cpp/classes/editor_interface.hpp>
 #include <godot_cpp/classes/v_box_container.hpp>

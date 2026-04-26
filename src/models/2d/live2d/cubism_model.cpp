@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: MIT
 // SPDX-FileCopyrightText: 2024 northernpaws
 
-#include "cubism_model.h"
+#include "models/2d/live2d/cubism_model.hpp"
 
 #include <CubismFramework.hpp>
 #include <Model/CubismModel.hpp>
@@ -18,12 +18,12 @@
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/object.hpp>
 
-#include "cubism_effect_eye_blink.h"
-#include "cubism_motion_entry.h"
-#include "cubism_value_parameter.h"
-#include "cubism_value_part_opacity.h"
-#include "live2d_model_bundle.h"
-#include "models/2d/live2d/renderer/cubism_model_proxy.h"
+#include "cubism_effect_eye_blink.hpp"
+#include "cubism_motion_entry.hpp"
+#include "cubism_value_parameter.hpp"
+#include "cubism_value_part_opacity.hpp"
+#include "live2d_model_bundle.hpp"
+#include "models/2d/live2d/renderer/cubism_model_proxy.hpp"
 
 CubismModel::CubismModel()
   : proxy_model(nullptr)

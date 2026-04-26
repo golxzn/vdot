@@ -1,4 +1,4 @@
-#include "avatar_parameter_eval.h"
+#include "avatar/avatar_parameter_eval.hpp"
 
 void AvatarParameterEval::_bind_methods() {
   godot::ClassDB::bind_method(

@@ -1,4 +1,4 @@
-#include "vts_face_tracker.h"
+#include "vts_face_tracker.hpp"
 
 void VTSFaceTracker::_bind_methods() {}
 

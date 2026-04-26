@@ -1,4 +1,4 @@
-#include "model_format.h"
+#include "models/model_format.hpp"
 
 void ModelFormat::_bind_methods() {
   godot::ClassDB::bind_method(

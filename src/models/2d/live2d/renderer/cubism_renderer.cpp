@@ -4,14 +4,14 @@
 // SPDX-License-Identifier: MIT
 // SPDX-FileCopyrightText: 2024 northernpaws
 
-#include "cubism_renderer.h"
+#include "cubism_renderer.hpp"
 
 #include <CubismFramework.hpp>
 #include <Model/CubismModel.hpp>
 #include <Rendering/CubismRenderer.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>
 
-#include "models/2d/live2d/cubism_model.h"
+#include "models/2d/live2d/cubism_model.hpp"
 
 void _recurisive_dispose_node(
   godot::Node const *parent_node,

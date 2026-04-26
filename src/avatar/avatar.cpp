@@ -1,4 +1,4 @@
-#include "avatar.h"
+#include "avatar/avatar.hpp"
 
 #include <godot_cpp/classes/input_event_mouse.hpp>
 #include <godot_cpp/classes/input_event_mouse_button.hpp>

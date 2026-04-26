@@ -1,4 +1,4 @@
-#include "parameter.h"
+#include "parameter.hpp"
 
 void Parameter::_bind_methods() {
   ADD_PROPERTY(

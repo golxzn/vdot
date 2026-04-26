@@ -1,4 +1,4 @@
-#include "model_loader.h"
+#include "models/model_loader.hpp"
 
 #include <godot_cpp/classes/dir_access.hpp>
 #include <godot_cpp/classes/resource_loader.hpp>

@@ -1,4 +1,4 @@
-#include "model_2d.h"
+#include "models/2d/model_2d.hpp"
 
 void Model2D::_bind_methods() {}
 

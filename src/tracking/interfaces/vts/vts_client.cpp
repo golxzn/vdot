@@ -1,4 +1,4 @@
-#include "vts_client.h"
+#include "vts_client.hpp"
 
 #include <godot_cpp/classes/json.hpp>
 

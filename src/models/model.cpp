@@ -1,6 +1,6 @@
-#include "model.h"
+#include "model.hpp"
 
-#include "model_parameter.h"
+#include "model_parameter.hpp"
 
 void Model::_on_property_updated(
   godot::StringName const &p_name,

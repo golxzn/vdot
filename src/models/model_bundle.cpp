@@ -1,4 +1,4 @@
-#include "model_bundle.h"
+#include "models/model_bundle.hpp"
 
 #include <godot_cpp/classes/dir_access.hpp>
 #include <godot_cpp/classes/file_access.hpp>

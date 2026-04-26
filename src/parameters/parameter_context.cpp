@@ -1,6 +1,6 @@
-#include "parameter_context.h"
+#include "parameter_context.hpp"
 
-#include "parameter_input.h"
+#include "parameter_input.hpp"
 
 void ParameterContext::_bind_methods() {
   ADD_SIGNAL(

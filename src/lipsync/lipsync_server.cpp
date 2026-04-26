@@ -1,7 +1,7 @@
-#include "lipsync_server.h"
+#include "lipsync/lipsync_server.hpp"
 
-#include "parameters/parameter_context.h"
-#include "parameters/parameter_server.h"
+#include "parameters/parameter_context.hpp"
+#include "parameters/parameter_server.hpp"
 
 LipsyncServer *LipsyncServer::singleton = nullptr;
 

@@ -1,7 +1,7 @@
 #include <CubismFramework.hpp>
 #include <Rendering/CubismRenderer.hpp>
 
-#include "cubism_renderer_2d.h"
+#include "cubism_renderer_2d.hpp"
 
 Live2D::Cubism::Framework::Rendering::CubismRenderer *Live2D::Cubism::
   Framework::Rendering::CubismRenderer::Create() {

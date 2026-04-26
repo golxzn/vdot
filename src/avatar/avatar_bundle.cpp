@@ -1,4 +1,4 @@
-#include "avatar_bundle.h"
+#include "avatar/avatar_bundle.hpp"
 
 #include <godot_cpp/classes/dir_access.hpp>
 #include <godot_cpp/classes/file_access.hpp>

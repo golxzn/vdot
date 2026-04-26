@@ -1,4 +1,4 @@
-#include "unified_expressions.h"
+#include "unified_expressions.hpp"
 
 namespace UnifiedExpressions {
 godot::HashMap<BlendShape, godot::String> blend_shape_names;

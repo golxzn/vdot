@@ -1,7 +1,7 @@
-#include "live2d_model_format.h"
+#include "models/2d/live2d/live2d_model_format.hpp"
 
-#include "cubism_model.h"
-#include "live2d_model_bundle.h"
+#include "cubism_model.hpp"
+#include "live2d_model_bundle.hpp"
 
 void Live2DModelFormat::_bind_methods() {
   godot::ClassDB::bind_method(

@@ -1,4 +1,4 @@
-#include "collaboration_session.h"
+#include "networking/collaboration_session.hpp"
 
 #include <godot_cpp/classes/e_net_packet_peer.hpp>
 #include <godot_cpp/classes/engine.hpp>

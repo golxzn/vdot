@@ -1,4 +1,4 @@
-#include "parameter_server.h"
+#include "parameter_server.hpp"
 
 ParameterServer *ParameterServer::singleton = nullptr;
 

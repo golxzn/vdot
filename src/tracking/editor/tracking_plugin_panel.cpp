@@ -1,4 +1,4 @@
-#include "tracking_plugin_panel.h"
+#include "tracking/editor/tracking_plugin_panel.hpp"
 
 #include <godot_cpp/classes/base_material3d.hpp>
 #include <godot_cpp/classes/camera3d.hpp>
@@ -11,11 +11,10 @@
 #include <godot_cpp/classes/world3d.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
-#include "../tracker_face.h"
-#include "../tracking_interface.h"
-#include "../tracking_server.h"
 #include "godot_cpp/variant/callable.hpp"
-#include "trackers/face_tracker_panel.h"
+#include "trackers/face_tracker_panel.hpp"
+#include "tracking/tracker_face.hpp"
+#include "tracking/tracking_server.hpp"
 
 void TrackingPluginPanel::_bind_methods() {
   godot::ClassDB::bind_method(

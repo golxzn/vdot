@@ -1,4 +1,4 @@
-#include "collaboration_peer.h"
+#include "networking/collaboration_peer.hpp"
 
 void CollaborationPeer::_bind_methods() {}
 

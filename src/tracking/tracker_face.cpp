@@ -1,6 +1,6 @@
-#include "tracker_face.h"
+#include "tracker_face.hpp"
 
-#include "parameters/parameter_server.h"
+#include "parameters/parameter_server.hpp"
 
 void FaceTracker::_bind_methods() {
   // Base Shapes

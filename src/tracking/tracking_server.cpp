@@ -1,9 +1,9 @@
-#include "tracking_server.h"
+#include "tracking_server.hpp"
 
 #include <godot_cpp/variant/utility_functions.hpp>
 
-#include "tracker.h"
-#include "tracking_interface.h"
+#include "tracker.hpp"
+#include "tracking_interface.hpp"
 
 TrackingServer *TrackingServer::singleton = nullptr;
 

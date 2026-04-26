@@ -1,9 +1,9 @@
-#include "vdot.h"
+#include "vdot.hpp"
 
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/core/version.hpp>
 
-#include "Version.h"
+#include "gen/version.hpp"
 
 /// @file
 /// GDExtensionTemplate example implementation.
@@ -20,7 +20,9 @@ shown.
 
 @return The version string (e.g. "Foo v1.2.3-gdedbd01").
 */
-godot::String VDot::version() { return VersionInfo::VERSION_STR.data(); }
+godot::String VDot::version() {
+  return godot::String{ std::data(vdot::ver::version_str) };
+}
 
 /*!
 @brief Get the godot-cpp version string for this extension.

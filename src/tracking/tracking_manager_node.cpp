@@ -1,8 +1,8 @@
-#include "tracking_manager_node.h"
+#include "tracking_manager_node.hpp"
 
 #include <godot_cpp/variant/utility_functions.hpp>
 
-#include "tracking_server.h"
+#include "tracking_server.hpp"
 
 void TrackingManagerNode::_bind_methods() {}
 

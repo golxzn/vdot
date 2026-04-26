@@ -1,4 +1,4 @@
-#include "live_link_server.h"
+#include "live_link_server.hpp"
 
 #include <godot_cpp/variant/utility_functions.hpp>
 
