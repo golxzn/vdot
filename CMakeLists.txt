@@ -49,6 +49,7 @@ if (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/extern/godot-cpp")
   )
 endif()
 
+set(GODOTCPP_USE_HOT_RELOAD OFF CACHE BOOL "" FORCE)
 add_subdirectory(extern/godot-cpp SYSTEM)
 set_target_properties(godot-cpp PROPERTIES CXX_VISIBILITY_PRESET hidden)
 

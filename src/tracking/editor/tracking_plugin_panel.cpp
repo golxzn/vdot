@@ -14,6 +14,7 @@
 #include "godot_cpp/variant/callable.hpp"
 #include "trackers/face_tracker_panel.hpp"
 #include "tracking/tracker_face.hpp"
+#include "tracking/tracking_interface.hpp"
 #include "tracking/tracking_server.hpp"
 
 void TrackingPluginPanel::_bind_methods() {
