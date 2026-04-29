@@ -2,30 +2,164 @@
 #define VDOT_LIVE_LINK_SERVER_H
 
 #include <cstdint>
-#include <map>
+#include <span>
 
 #include <godot_cpp/classes/mutex.hpp>
 #include <godot_cpp/classes/node.hpp>
 #include <godot_cpp/classes/packet_peer_udp.hpp>
 #include <godot_cpp/classes/thread.hpp>
 #include <godot_cpp/classes/udp_server.hpp>
+#include <godot_cpp/templates/hash_map.hpp>
 #include <godot_cpp/variant/array.hpp>
 #include <godot_cpp/variant/packed_byte_array.hpp>
 
 #include "tracking/standards/arkit_blend_shapes.hpp"
 
-static constexpr int BLEND_SHAPE_COUNT = 61;
+inline constexpr size_t BLEND_SHAPE_COUNT{ 61 };
+inline constexpr size_t MAX_NAME_LENGTH{ 64 };
+inline constexpr size_t ARKIT_PACKET_VERSION{ 0x06 };
 
-struct LiveLinkPacket {
-  uint8_t       magic_1;
-  godot::String device_id;
-  godot::String device_name;
-  uint64_t      time_stamp;
-  uint64_t      magic_2;
+struct ARKitBlendShapes {
+  using array_type = std::array<float, BLEND_SHAPE_COUNT>;
 
-  godot::PackedFloat32Array blend_shapes;
+  // ARKit Blendshapes
 
-  static LiveLinkPacket from_bytes(godot::PackedByteArray const &bytes);
+  float eye_blink_left{};
+  float eye_look_down_left{};
+  float eye_look_in_left{};
+  float eye_look_out_left{};
+  float eye_look_up_left{};
+  float eye_squint_left{};
+  float eye_wide_left{};
+
+  float eye_blink_right{};
+  float eye_look_down_right{};
+  float eye_look_in_right{};
+  float eye_look_out_right{};
+  float eye_look_up_right{};
+  float eye_squint_right{};
+  float eye_wide_right{};
+
+  float jaw_forward{};
+  float jaw_right{};
+  float jaw_left{};
+  float jaw_open{};
+
+  float mouth_close{};
+  float mouth_funnel{};
+  float mouth_pucker{};
+  float mouth_right{};
+  float mouth_left{};
+
+  float mouth_smile_left{};
+  float mouth_smile_right{};
+
+  float mouth_frown_left{};
+  float mouth_frown_right{};
+
+  float mouth_dimple_left{};
+  float mouth_dimple_right{};
+
+  float mouth_stretch_left{};
+  float mouth_stretch_right{};
+
+  float mouth_roll_lower{};
+  float mouth_roll_upper{};
+
+  float mouth_shrug_lower{};
+  float mouth_shrug_upper{};
+
+  float mouth_press_left{};
+  float mouth_press_right{};
+
+  float mouth_lower_down_left{};
+  float mouth_lower_down_right{};
+
+  float mouth_upper_up_left{};
+  float mouth_upper_up_right{};
+
+  float brow_down_left{};
+  float brow_down_right{};
+
+  float brow_inner_up{};
+
+  float brow_outer_up_left{};
+  float brow_outer_up_right{};
+
+  float cheek_puff{};
+
+  float cheek_squint_left{};
+  float cheek_squint_right{};
+
+  float nose_sneer_left{};
+  float nose_sneer_right{};
+
+  float tongue_out{};
+
+  // LiveLink specific
+  float head_yaw{};
+  float head_pitch{};
+  float head_roll{};
+
+  float left_eye_yaw{};
+  float left_eye_pitch{};
+  float left_eye_roll{};
+
+  float right_eye_yaw{};
+  float right_eye_pitch{};
+  float right_eye_roll{};
+
+  inline auto operator=(array_type const &array) noexcept
+    -> ARKitBlendShapes & {
+    reinterpret_cast<array_type &>(*this) = array;
+    return *this;
+  }
+
+  inline auto operator[](this auto &&self, size_t const index) noexcept {
+    return self.array()[index];
+  }
+
+  inline auto array() const noexcept -> array_type const & {
+    return reinterpret_cast<array_type const &>(*this);
+  }
+
+  inline auto array() noexcept -> array_type & {
+    return reinterpret_cast<array_type &>(*this);
+  }
+
+  inline auto binary() const noexcept -> std::span<uint8_t const> {
+    return std::span<uint8_t const>{
+      reinterpret_cast<uint8_t const *>(this),
+      sizeof(ARKitBlendShapes),
+    };
+  }
+
+  inline auto binary() noexcept -> std::span<uint8_t> {
+    return std::span<uint8_t>{
+      reinterpret_cast<uint8_t *>(this),
+      sizeof(ARKitBlendShapes),
+    };
+  }
+};
+
+struct LiveLinkARKitPacket {
+  using uuid_array = std::array<char, 36>;
+  using name_array = std::array<char, MAX_NAME_LENGTH>;
+
+  uint8_t          version;
+  uint32_t         uuid_length;
+  uuid_array       uuid;
+  uint32_t         name_length;
+  name_array       name;
+  uint64_t         timestamp;
+  uint64_t         magic_2;
+  uint8_t          blend_shape_count;
+  ARKitBlendShapes blend_shapes;
+
+  void dump() const;
+
+  static auto from_bytes(godot::PackedByteArray const &bytes)
+    -> LiveLinkARKitPacket;
 };
 
 /**
@@ -33,172 +167,233 @@ struct LiveLinkPacket {
  */
 class LiveLinkClientData : public godot::RefCounted {
   GDCLASS(LiveLinkClientData, godot::RefCounted)
-protected:
-  static void _bind_methods();
 
 public:
-  enum DataIndex {
-    BlendShapeCount     = 0,
+  uint64_t         _timecode;
+  ARKitBlendShapes _data;
 
-    // ARKit Blendshapes
-
-    EyeBlinkLeft        = 0,
-    EyeLookDownLeft     = 1,
-    EyeLookInLeft       = 2,
-    EyeLookOutLeft      = 3,
-    EyeLookUpLeft       = 4,
-    EyeSquintLeft       = 5,
-    EyeWideLeft         = 6,
-
-    EyeBlinkRight       = 7,
-    EyeLookDownRight    = 8,
-    EyeLookInRight      = 9,
-    EyeLookOutRight     = 10,
-    EyeLookUpRight      = 11,
-    EyeSquintRight      = 12,
-    EyeWideRight        = 13,
-
-    JawForward          = 14,
-    JawRight            = 15,
-    JawLeft             = 16,
-    JawOpen             = 17,
-
-    MouthClose          = 18,
-    MouthFunnel         = 19,
-    MouthPucker         = 20,
-    MouthRight          = 21,
-    MouthLeft           = 22,
-
-    MouthSmileLeft      = 23,
-    MouthSmileRight     = 24,
-
-    MouthFrownLeft      = 25,
-    MouthFrownRight     = 26,
-
-    MouthDimpleLeft     = 27,
-    MouthDimpleRight    = 28,
-
-    MouthStretchLeft    = 29,
-    MouthStretchRight   = 30,
-
-    MouthRollLower      = 31,
-    MouthRollUpper      = 32,
-    MouthShrugLower     = 33,
-    MouthShrugUpper     = 34,
-
-    MouthPressLeft      = 35,
-    MouthPressRight     = 36,
-
-    MouthLowerDownLeft  = 37,
-    MouthLowerDownRight = 38,
-
-    MouthUpperUpLeft    = 39,
-    MouthUpperUpRight   = 40,
-
-    BrowDownLeft        = 41,
-    BrowDownRight       = 42,
-
-    BrowInnerUp         = 43,
-
-    BrowOuterUpLeft     = 44,
-    BrowOuterUpRight    = 45,
-
-    CheekPuff           = 46,
-
-    CheekSquintLeft     = 47,
-    CheekSquintRight    = 48,
-
-    NoseSneerLeft       = 49,
-    NoseSneerRight      = 50,
-
-    TongueOut           = 51,
-
-    // LiveLink specific
-    HeadYaw             = 52,
-    HeadPitch           = 53,
-    HeadRoll            = 54,
-
-    LeftEyeYaw          = 55,
-    LeftEyePitch        = 56,
-    LeftEyeRoll         = 57,
-
-    RightEyeYaw         = 58,
-    RightEyePitch       = 59,
-    RightEyeRoll        = 60,
-  };
-
-  uint64_t                  _timecode;
-  godot::PackedFloat32Array _data;
-
-  LiveLinkClientData();
-  ~LiveLinkClientData() override;
+  LiveLinkClientData()           = default;
+  ~LiveLinkClientData() override = default;
 
   float get_blend_shape(ARKit::BlendShape blendShape);
 
-  [[nodiscard]] float _get_eye_blink_left() const;
-  [[nodiscard]] float _get_eye_look_down_left() const;
-  [[nodiscard]] float _get_eye_look_in_left() const;
-  [[nodiscard]] float _get_eye_look_out_left() const;
-  [[nodiscard]] float _get_eye_look_up_left() const;
-  [[nodiscard]] float _get_eye_squint_left() const;
-  [[nodiscard]] float _get_eye_wide_left() const;
-  [[nodiscard]] float _get_eye_blink_right() const;
-  [[nodiscard]] float _get_eye_look_down_right() const;
-  [[nodiscard]] float _get_eye_look_in_right() const;
-  [[nodiscard]] float _get_eye_look_out_right() const;
-  [[nodiscard]] float _get_eye_look_up_right() const;
-  [[nodiscard]] float _get_eye_squint_right() const;
-  [[nodiscard]] float _get_eye_wide_right() const;
-  [[nodiscard]] float _get_jaw_forward() const;
-  [[nodiscard]] float _get_jaw_right() const;
-  [[nodiscard]] float _get_jaw_left() const;
-  [[nodiscard]] float _get_jaw_open() const;
-  [[nodiscard]] float _get_mouth_close() const;
-  [[nodiscard]] float _get_mouth_funnel() const;
-  [[nodiscard]] float _get_mouth_pucker() const;
-  [[nodiscard]] float _get_mouth_right() const;
-  [[nodiscard]] float _get_mouth_left() const;
-  [[nodiscard]] float _get_mouth_smile_left() const;
-  [[nodiscard]] float _get_mouth_smile_right() const;
-  [[nodiscard]] float _get_mouth_frown_left() const;
-  [[nodiscard]] float _get_mouth_frown_right() const;
-  [[nodiscard]] float _get_mouth_dimple_left() const;
-  [[nodiscard]] float _get_mouth_dimple_right() const;
-  [[nodiscard]] float _get_mouth_stretch_left() const;
-  [[nodiscard]] float _get_mouth_stretch_right() const;
-  [[nodiscard]] float _get_mouth_roll_lower() const;
-  [[nodiscard]] float _get_mouth_roll_upper() const;
-  [[nodiscard]] float _get_mouth_shrug_lower() const;
-  [[nodiscard]] float _get_mouth_shrug_upper() const;
-  [[nodiscard]] float _get_mouth_press_left() const;
-  [[nodiscard]] float _get_mouth_press_right() const;
-  [[nodiscard]] float _get_mouth_lower_down_left() const;
-  [[nodiscard]] float _get_mouth_lower_down_right() const;
-  [[nodiscard]] float _get_mouth_upper_up_left() const;
-  [[nodiscard]] float _get_mouth_upper_up_right() const;
-  [[nodiscard]] float _get_brow_down_left() const;
-  [[nodiscard]] float _get_brow_down_right() const;
-  [[nodiscard]] float _get_brow_inner_up() const;
-  [[nodiscard]] float _get_brow_outer_up_left() const;
-  [[nodiscard]] float _get_brow_outer_up_right() const;
-  [[nodiscard]] float _get_cheek_puff() const;
-  [[nodiscard]] float _get_cheek_squint_left() const;
-  [[nodiscard]] float _get_cheek_squint_right() const;
-  [[nodiscard]] float _get_nose_sneer_left() const;
-  [[nodiscard]] float _get_nose_sneer_right() const;
-  [[nodiscard]] float _get_tongue_out() const;
-  [[nodiscard]] float _get_head_yaw() const;
-  [[nodiscard]] float _get_head_pitch() const;
-  [[nodiscard]] float _get_head_roll() const;
-  [[nodiscard]] float _get_left_eye_yaw() const;
-  [[nodiscard]] float _get_left_eye_pitch() const;
-  [[nodiscard]] float _get_left_eye_roll() const;
-  [[nodiscard]] float _get_right_eye_yaw() const;
-  [[nodiscard]] float _get_right_eye_pitch() const;
-  [[nodiscard]] float _get_right_eye_roll() const;
-};
+  [[nodiscard]] float _get_eye_blink_left() const {
+    return _data.eye_blink_left;
+  }
 
-VARIANT_ENUM_CAST(LiveLinkClientData::DataIndex);
+  [[nodiscard]] float _get_eye_look_down_left() const {
+    return _data.eye_look_down_left;
+  }
+
+  [[nodiscard]] float _get_eye_look_in_left() const {
+    return _data.eye_look_in_left;
+  }
+
+  [[nodiscard]] float _get_eye_look_out_left() const {
+    return _data.eye_look_out_left;
+  }
+
+  [[nodiscard]] float _get_eye_look_up_left() const {
+    return _data.eye_look_up_left;
+  }
+
+  [[nodiscard]] float _get_eye_squint_left() const {
+    return _data.eye_squint_left;
+  }
+
+  [[nodiscard]] float _get_eye_wide_left() const {
+    return _data.eye_wide_left;
+  }
+
+  [[nodiscard]] float _get_eye_blink_right() const {
+    return _data.eye_blink_right;
+  }
+
+  [[nodiscard]] float _get_eye_look_down_right() const {
+    return _data.eye_look_down_right;
+  }
+
+  [[nodiscard]] float _get_eye_look_in_right() const {
+    return _data.eye_look_in_right;
+  }
+
+  [[nodiscard]] float _get_eye_look_out_right() const {
+    return _data.eye_look_out_right;
+  }
+
+  [[nodiscard]] float _get_eye_look_up_right() const {
+    return _data.eye_look_up_right;
+  }
+
+  [[nodiscard]] float _get_eye_squint_right() const {
+    return _data.eye_squint_right;
+  }
+
+  [[nodiscard]] float _get_eye_wide_right() const {
+    return _data.eye_wide_right;
+  }
+
+  [[nodiscard]] float _get_jaw_forward() const { return _data.jaw_forward; }
+
+  [[nodiscard]] float _get_jaw_right() const { return _data.jaw_right; }
+
+  [[nodiscard]] float _get_jaw_left() const { return _data.jaw_left; }
+
+  [[nodiscard]] float _get_jaw_open() const { return _data.jaw_open; }
+
+  [[nodiscard]] float _get_mouth_close() const { return _data.mouth_close; }
+
+  [[nodiscard]] float _get_mouth_funnel() const { return _data.mouth_funnel; }
+
+  [[nodiscard]] float _get_mouth_pucker() const { return _data.mouth_pucker; }
+
+  [[nodiscard]] float _get_mouth_right() const { return _data.mouth_right; }
+
+  [[nodiscard]] float _get_mouth_left() const { return _data.mouth_left; }
+
+  [[nodiscard]] float _get_mouth_smile_left() const {
+    return _data.mouth_smile_left;
+  }
+
+  [[nodiscard]] float _get_mouth_smile_right() const {
+    return _data.mouth_smile_right;
+  }
+
+  [[nodiscard]] float _get_mouth_frown_left() const {
+    return _data.mouth_frown_left;
+  }
+
+  [[nodiscard]] float _get_mouth_frown_right() const {
+    return _data.mouth_frown_right;
+  }
+
+  [[nodiscard]] float _get_mouth_dimple_left() const {
+    return _data.mouth_dimple_left;
+  }
+
+  [[nodiscard]] float _get_mouth_dimple_right() const {
+    return _data.mouth_dimple_right;
+  }
+
+  [[nodiscard]] float _get_mouth_stretch_left() const {
+    return _data.mouth_stretch_left;
+  }
+
+  [[nodiscard]] float _get_mouth_stretch_right() const {
+    return _data.mouth_stretch_right;
+  }
+
+  [[nodiscard]] float _get_mouth_roll_lower() const {
+    return _data.mouth_roll_lower;
+  }
+
+  [[nodiscard]] float _get_mouth_roll_upper() const {
+    return _data.mouth_roll_upper;
+  }
+
+  [[nodiscard]] float _get_mouth_shrug_lower() const {
+    return _data.mouth_shrug_lower;
+  }
+
+  [[nodiscard]] float _get_mouth_shrug_upper() const {
+    return _data.mouth_shrug_upper;
+  }
+
+  [[nodiscard]] float _get_mouth_press_left() const {
+    return _data.mouth_press_left;
+  }
+
+  [[nodiscard]] float _get_mouth_press_right() const {
+    return _data.mouth_press_right;
+  }
+
+  [[nodiscard]] float _get_mouth_lower_down_left() const {
+    return _data.mouth_lower_down_left;
+  }
+
+  [[nodiscard]] float _get_mouth_lower_down_right() const {
+    return _data.mouth_lower_down_right;
+  }
+
+  [[nodiscard]] float _get_mouth_upper_up_left() const {
+    return _data.mouth_upper_up_left;
+  }
+
+  [[nodiscard]] float _get_mouth_upper_up_right() const {
+    return _data.mouth_upper_up_right;
+  }
+
+  [[nodiscard]] float _get_brow_down_left() const {
+    return _data.brow_down_left;
+  }
+
+  [[nodiscard]] float _get_brow_down_right() const {
+    return _data.brow_down_right;
+  }
+
+  [[nodiscard]] float _get_brow_inner_up() const {
+    return _data.brow_inner_up;
+  }
+
+  [[nodiscard]] float _get_brow_outer_up_left() const {
+    return _data.brow_outer_up_left;
+  }
+
+  [[nodiscard]] float _get_brow_outer_up_right() const {
+    return _data.brow_outer_up_right;
+  }
+
+  [[nodiscard]] float _get_cheek_puff() const { return _data.cheek_puff; }
+
+  [[nodiscard]] float _get_cheek_squint_left() const {
+    return _data.cheek_squint_left;
+  }
+
+  [[nodiscard]] float _get_cheek_squint_right() const {
+    return _data.cheek_squint_right;
+  }
+
+  [[nodiscard]] float _get_nose_sneer_left() const {
+    return _data.nose_sneer_left;
+  }
+
+  [[nodiscard]] float _get_nose_sneer_right() const {
+    return _data.nose_sneer_right;
+  }
+
+  [[nodiscard]] float _get_tongue_out() const { return _data.tongue_out; }
+
+  [[nodiscard]] float _get_head_yaw() const { return _data.head_yaw; }
+
+  [[nodiscard]] float _get_head_pitch() const { return _data.head_pitch; }
+
+  [[nodiscard]] float _get_head_roll() const { return _data.head_roll; }
+
+  [[nodiscard]] float _get_left_eye_yaw() const { return _data.left_eye_yaw; }
+
+  [[nodiscard]] float _get_left_eye_pitch() const {
+    return _data.left_eye_pitch;
+  }
+
+  [[nodiscard]] float _get_left_eye_roll() const {
+    return _data.left_eye_roll;
+  }
+
+  [[nodiscard]] float _get_right_eye_yaw() const {
+    return _data.right_eye_yaw;
+  }
+
+  [[nodiscard]] float _get_right_eye_pitch() const {
+    return _data.right_eye_pitch;
+  }
+
+  [[nodiscard]] float _get_right_eye_roll() const {
+    return _data.right_eye_roll;
+  }
+
+protected:
+  static void _bind_methods();
+};
 
 /**
  * Represents a client device connected to the Live Link server.
@@ -208,20 +403,19 @@ VARIANT_ENUM_CAST(LiveLinkClientData::DataIndex);
  */
 class LiveLinkClient : public godot::RefCounted {
   GDCLASS(LiveLinkClient, godot::RefCounted)
-protected:
-  static void _bind_methods();
-
 public:
+  LiveLinkClient()           = default;
+  ~LiveLinkClient() override = default;
+
   godot::String _id;
   godot::String _name;
 
   uint64_t                         _last_seen;
   godot::Ref<godot::PacketPeerUDP> _connection;
+  godot::Ref<LiveLinkClientData>   _values{ memnew(LiveLinkClientData) };
 
-  godot::Ref<LiveLinkClientData> _values; // tODO: use ref?
-
-  LiveLinkClient();
-  ~LiveLinkClient();
+protected:
+  static void _bind_methods() {}
 };
 
 /**
@@ -230,38 +424,38 @@ public:
  */
 class LiveLinkServer : public godot::RefCounted {
   GDCLASS(LiveLinkServer, godot::RefCounted)
-
-  using PeerList            = godot::List<godot::Ref<godot::PacketPeerUDP>>;
-
-  uint16_t _port            = 11111;
-
-  godot::UDPServer *_server = nullptr;
-  godot::Mutex     *_server_mutex = nullptr;
-  bool              _running      = true;
-
-  PeerList                                            _unidentified_clients;
-  // TODO: replace std map with godot VMap or vector?
-  std::map<godot::String, godot::Ref<LiveLinkClient>> _clients;
-
-  godot::Thread *_thread; // tODO: ref?
-protected:
-  static void _bind_methods();
-
 public:
   bool _disable_polling = false;
 
-  LiveLinkServer();
+  LiveLinkServer()      = default;
   ~LiveLinkServer() override;
 
-  godot::Error listen();
-  godot::Error stop();
+  auto listen() -> godot::Error;
+  auto stop() -> godot::Error;
 
-  godot::Error poll();
+  auto poll() -> godot::Error;
+  auto fetch_clients() -> godot::Error;
+  auto poll_packages() -> godot::Error;
 
-  [[nodiscard]] uint16_t get_port() const;
-  void                   set_port(uint16_t port);
+  [[nodiscard]] uint16_t get_port() const noexcept { return _port; }
+
+  void set_port(uint16_t port);
 
   void _thread_poll();
+
+protected:
+  static void _bind_methods();
+
+private:
+  uint16_t _port{ 11111 };
+
+  godot::Ref<godot::Thread>    _thread{ memnew(godot::Thread) };
+  godot::Ref<godot::UDPServer> _server{ memnew(godot::UDPServer) };
+  godot::Ref<godot::Mutex>     _server_mutex{ memnew(godot::Mutex) };
+  std::atomic<bool>            _running{ true };
+
+  godot::List<godot::Ref<godot::PacketPeerUDP>> _unidentified_clients{};
+  godot::HashMap<godot::String, godot::Ref<LiveLinkClient>> _clients{};
 };
 
 #endif // VDOT_LIVE_LINK_SERVER_H

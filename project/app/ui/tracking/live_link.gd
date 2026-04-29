@@ -15,9 +15,9 @@ func _ready() -> void:
 	else:
 		settings_panel.hide()
 		initialize_panel.show()
-		
+
 	LiveLinkInterface.tracker_connected.connect(_tracker_connected)
-	
+
 	_update_ui()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,12 +26,12 @@ func _process(delta: float) -> void:
 
 func _update_ui():
 	var status = "Uninitialized"
-	
+
 	if LiveLinkInterface.is_initialized():
 		status = "Running"
 	else:
 		status = "Offline"
-		
+
 	var addresses = ""
 	var first = true
 	for ip in IP.get_local_addresses():
@@ -42,9 +42,9 @@ func _update_ui():
 				first = false
 			else:
 				addresses = addresses + ", " + ip
-	
+
 	server_status.text = "Server: %s - Address: %s - Port: %d" % [status, addresses, LiveLinkInterface.server.port]
-	
+
 	tracker_list.clear()
 	for key in LiveLinkInterface.trackers:
 		var tracker = LiveLinkInterface.trackers[key]
@@ -53,13 +53,13 @@ func _update_ui():
 
 func _on_initialize_button_pressed() -> void:
 	var err = LiveLinkInterface.initialize()
-	
+
 	if err != true:
 		print("Error initializing LiveLink interface")
 	else:
 		initialize_panel.hide()
 		settings_panel.show()
-	
+
 	_update_ui()
 
 func _tracker_connected(tracker: LiveLinkFaceTracker):

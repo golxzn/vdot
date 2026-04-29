@@ -1,13 +1,13 @@
 #ifndef VDOT_BLEND_SHAPES_H
 #define VDOT_BLEND_SHAPES_H
 
+#include <godot_cpp/core/binder_common.hpp>
 #include <godot_cpp/templates/hash_map.hpp>
 #include <godot_cpp/templates/vmap.hpp>
 #include <godot_cpp/variant/utility_functions.hpp>
 
-#include "godot_cpp/core/binder_common.hpp"
-
 namespace ARKit {
+
 /**
  * BlendShapes defines an enum of all possible blend shape names used by
  * ARKit's face tracking.
@@ -96,12 +96,153 @@ enum BlendShape {
   Max                 = 52,
 };
 
-extern godot::HashMap<godot::StringName, BlendShape> ShapeNames;
+godot::HashMap<godot::StringName, BlendShape> const ShapeNames{
+  {        "EyeBlinkLeft",        BlendShape::EyeBlinkLeft },
+  {     "EyeLookDownLeft",     BlendShape::EyeLookDownLeft },
+  {       "EyeLookInLeft",       BlendShape::EyeLookInLeft },
+  {      "EyeLookOutLeft",      BlendShape::EyeLookOutLeft },
+  {       "EyeLookUpLeft",       BlendShape::EyeLookUpLeft },
+  {       "EyeSquintLeft",       BlendShape::EyeSquintLeft },
+  {         "EyeWideLeft",         BlendShape::EyeWideLeft },
 
-extern godot::HashMap<BlendShape, godot::StringName> shape_to_name;
+  {       "EyeBlinkRight",       BlendShape::EyeBlinkRight },
+  {    "EyeLookDownRight",    BlendShape::EyeLookDownRight },
+  {      "EyeLookInRight",      BlendShape::EyeLookInRight },
+  {     "EyeLookOutRight",     BlendShape::EyeLookOutRight },
+  {      "EyeLookUpRight",      BlendShape::EyeLookUpRight },
+  {      "EyeSquintRight",      BlendShape::EyeSquintRight },
+  {        "EyeWideRight",        BlendShape::EyeWideRight },
 
-// helper called to populate the hashmap.
-void _init_arkit_shape_names();
+  {          "JawForward",          BlendShape::JawForward },
+  {            "JawRight",            BlendShape::JawRight },
+  {             "JawLeft",             BlendShape::JawLeft },
+  {             "JawOpen",             BlendShape::JawOpen },
+
+  {          "MouthClose",          BlendShape::MouthClose },
+  {         "MouthFunnel",         BlendShape::MouthFunnel },
+  {         "MouthPucker",         BlendShape::MouthPucker },
+  {          "MouthRight",          BlendShape::MouthRight },
+  {           "MouthLeft",           BlendShape::MouthLeft },
+
+  {      "MouthSmileLeft",      BlendShape::MouthSmileLeft },
+  {     "MouthSmileRight",     BlendShape::MouthSmileRight },
+
+  {      "MouthFrownLeft",      BlendShape::MouthFrownLeft },
+  {     "MouthFrownRight",     BlendShape::MouthFrownRight },
+
+  {     "MouthDimpleLeft",     BlendShape::MouthDimpleLeft },
+  {    "MouthDimpleRight",    BlendShape::MouthDimpleRight },
+
+  {    "MouthStretchLeft",    BlendShape::MouthStretchLeft },
+  {   "MouthStretchRight",   BlendShape::MouthStretchRight },
+
+  {      "MouthRollLower",      BlendShape::MouthRollLower },
+  {      "MouthRollUpper",      BlendShape::MouthRollUpper },
+  {     "MouthShrugLower",     BlendShape::MouthShrugLower },
+  {     "MouthShrugUpper",     BlendShape::MouthShrugUpper },
+
+  {      "MouthPressLeft",      BlendShape::MouthPressLeft },
+  {     "MouthPressRight",     BlendShape::MouthPressRight },
+
+  {  "MouthLowerDownLeft",  BlendShape::MouthLowerDownLeft },
+  { "MouthLowerDownRight", BlendShape::MouthLowerDownRight },
+
+  {    "MouthUpperUpLeft",    BlendShape::MouthUpperUpLeft },
+  {   "MouthUpperUpRight",   BlendShape::MouthUpperUpRight },
+
+  {        "BrowDownLeft",        BlendShape::BrowDownLeft },
+  {       "BrowDownRight",       BlendShape::BrowDownRight },
+
+  {         "BrowInnerUp",         BlendShape::BrowInnerUp },
+
+  {     "BrowOuterUpLeft",     BlendShape::BrowOuterUpLeft },
+  {    "BrowOuterUpRight",    BlendShape::BrowOuterUpRight },
+
+  {           "CheekPuff",           BlendShape::CheekPuff },
+
+  {     "CheekSquintLeft",     BlendShape::CheekSquintLeft },
+  {    "CheekSquintRight",    BlendShape::CheekSquintRight },
+
+  {       "NoseSneerLeft",       BlendShape::NoseSneerLeft },
+  {      "NoseSneerRight",      BlendShape::NoseSneerRight },
+
+  {           "TongueOut",           BlendShape::TongueOut },
+};
+
+godot::HashMap<BlendShape, godot::StringName> const shape_to_name{
+  {        BlendShape::EyeBlinkLeft,        "eyeBlinkLeft" },
+  {     BlendShape::EyeLookDownLeft,     "eyeLookDownLeft" },
+  {       BlendShape::EyeLookInLeft,       "eyeLookInLeft" },
+  {      BlendShape::EyeLookOutLeft,      "eyeLookOutLeft" },
+  {       BlendShape::EyeLookUpLeft,       "eyeLookUpLeft" },
+  {       BlendShape::EyeSquintLeft,       "eyeSquintLeft" },
+  {         BlendShape::EyeWideLeft,         "eyeWideLeft" },
+
+  {       BlendShape::EyeBlinkRight,       "eyeBlinkRight" },
+  {    BlendShape::EyeLookDownRight,    "eyeLookDownRight" },
+  {      BlendShape::EyeLookInRight,      "eyeLookInRight" },
+  {     BlendShape::EyeLookOutRight,     "eyeLookOutRight" },
+  {      BlendShape::EyeLookUpRight,      "eyeLookUpRight" },
+  {      BlendShape::EyeSquintRight,      "eyeSquintRight" },
+  {        BlendShape::EyeWideRight,        "eyeWideRight" },
+
+  {          BlendShape::JawForward,          "jawForward" },
+  {            BlendShape::JawRight,            "jawRight" },
+  {             BlendShape::JawLeft,             "jawLeft" },
+  {             BlendShape::JawOpen,             "jawOpen" },
+
+  {          BlendShape::MouthClose,          "mouthClose" },
+  {         BlendShape::MouthFunnel,         "mouthFunnel" },
+  {         BlendShape::MouthPucker,         "mouthPucker" },
+  {          BlendShape::MouthRight,          "mouthRight" },
+  {           BlendShape::MouthLeft,           "mouthLeft" },
+
+  {      BlendShape::MouthSmileLeft,      "mouthSmileLeft" },
+  {     BlendShape::MouthSmileRight,     "mouthSmileRight" },
+
+  {      BlendShape::MouthFrownLeft,      "mouthFrownLeft" },
+  {     BlendShape::MouthFrownRight,     "mouthFrownRight" },
+
+  {     BlendShape::MouthDimpleLeft,     "mouthDimpleLeft" },
+  {    BlendShape::MouthDimpleRight,    "mouthDimpleRight" },
+
+  {    BlendShape::MouthStretchLeft,    "mouthStretchLeft" },
+  {   BlendShape::MouthStretchRight,   "mouthStretchRight" },
+
+  {      BlendShape::MouthRollLower,      "mouthRollLower" },
+  {      BlendShape::MouthRollUpper,      "mouthRollUpper" },
+  {     BlendShape::MouthShrugLower,     "mouthShrugLower" },
+  {     BlendShape::MouthShrugUpper,     "mouthShrugUpper" },
+
+  {      BlendShape::MouthPressLeft,      "mouthPressLeft" },
+  {     BlendShape::MouthPressRight,     "mouthPressRight" },
+
+  {  BlendShape::MouthLowerDownLeft,  "mouthLowerDownLeft" },
+  { BlendShape::MouthLowerDownRight, "mouthLowerDownRight" },
+
+  {    BlendShape::MouthUpperUpLeft,    "mouthUpperUpLeft" },
+  {   BlendShape::MouthUpperUpRight,   "mouthUpperUpRight" },
+
+  {        BlendShape::BrowDownLeft,        "browDownLeft" },
+  {       BlendShape::BrowDownRight,       "browDownRight" },
+
+  {         BlendShape::BrowInnerUp,         "browInnerUp" },
+
+  {     BlendShape::BrowOuterUpLeft,     "browOuterUpLeft" },
+  {    BlendShape::BrowOuterUpRight,    "browOuterUpRight" },
+
+  {           BlendShape::CheekPuff,           "cheekPuff" },
+
+  {     BlendShape::CheekSquintLeft,     "cheekSquintLeft" },
+  {    BlendShape::CheekSquintRight,    "cheekSquintRight" },
+
+  {       BlendShape::NoseSneerLeft,       "noseSneerLeft" },
+  {      BlendShape::NoseSneerRight,      "noseSneerRight" },
+
+  {           BlendShape::TongueOut,           "tongueOut" },
+};
+
+
 } // namespace ARKit
 
 VARIANT_ENUM_CAST(ARKit::BlendShape);

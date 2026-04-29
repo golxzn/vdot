@@ -275,21 +275,25 @@ void LiveLinkPanel::update_mesh(godot::Ref<LiveLinkClientData> const data) {
 
   // 51 = limit of ARKit blendshapes in the data packet, rest are head
   // position.
-  for (int i = 0; i < 51; ++i) {
-    auto value = data->_data[i];
-    // tODO: cache blendshape indexes
-    auto shape = _mesh_instance->find_blend_shape_by_name(blend_shape_name(i));
-    if (shape > -1) {
-      _mesh_instance->set_blend_shape_value(shape, value);
-    } else {
-      godot::UtilityFunctions::push_warning(
-        "Failed to find blendshape for index ",
-        i,
-        " looking for \"",
-        blend_shape_name(i),
-        "\""
-      );
+  for (int i = 0; i < ARKit::BlendShape::Max - 1; ++i) {
+    auto value = data->get_blend_shape(static_cast<ARKit::BlendShape>(i));
+    // TODO: cache blendshape indexes
+    auto const shape_idx{
+      _mesh_instance->find_blend_shape_by_name(blend_shape_name(i))
+    };
+    if (shape_idx > -1) {
+      _mesh_instance->set_blend_shape_value(shape_idx, value);
+      continue;
     }
+
+    godot::UtilityFunctions::push_warning(
+      "Failed to find blendshape for index ",
+      i,
+      " looking for ",
+      '"',
+      blend_shape_name(i),
+      '"'
+    );
   }
 }
 

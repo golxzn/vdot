@@ -8,9 +8,9 @@ class_name TrackerSettings extends VBoxContainer
 func set_tracker(tracker: Tracker):
 	tracker_name_label.text = tracker.get_tracker_name()
 	tracker_desc_label.text = tracker.get_tracker_description()
-	
+
 	facial_tracker_settings.hide()
-	
+
 	if tracker is FaceTracker:
 		facial_tracker_settings.show()
 		facial_tracker_settings.set_tracker(tracker)

@@ -90,26 +90,16 @@ text_overrun_behavior = 3
 [node name="Environment" type="Node2D" parent="."]
 
 [node name="AvatarManager" type="AvatarManager" parent="Environment"]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
-script = null
 
 [node name="Item" type="Node2D" parent="Environment"]
 
 [node name="Sprite" type="Sprite2D" parent="Environment/Item"]
 
 [node name="TrackingOptions" type="Window" parent="."]
+oversampling_override = 1.0
 title = "Tracking Options"
 initial_position = 2
 size = Vector2i(800, 600)
-visible = false
 always_on_top = true
 theme = ExtResource("3_72s4j")
 
@@ -137,28 +127,8 @@ visible = false
 layout_mode = 2
 
 [node name="TrackingManagerNode" type="TrackingManagerNode" parent="."]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
-script = null
 
 [node name="CollaborationSession" type="CollaborationSession" parent="."]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-physics_interpolation_mode = 0
-auto_translate_mode = 0
-editor_description = ""
-script = null
 
 [node name="AddAvatarWindow" type="Window" parent="." node_paths=PackedStringArray("avatar_manager")]
 oversampling_override = 1.0
@@ -249,9 +219,10 @@ layout_mode = 2
 text = "Create Avatar"
 
 [node name="LoadModelDialog" type="FileDialog" parent="AddAvatarWindow"]
+oversampling_override = 1.0
 title = "Open a File"
 initial_position = 1
-size = Vector2i(400, 300)
+size = Vector2i(496, 300)
 min_size = Vector2i(300, 200)
 ok_button_text = "Open"
 file_mode = 0

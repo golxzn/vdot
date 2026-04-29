@@ -63,8 +63,6 @@ static Csm::CubismFramework::Option csm_options;
 /// @file
 /// Register our classes with Godot.
 
-void cubism_output(char const *message) { WARN_PRINT(message); }
-
 static godot::Ref<ParameterServer> parameter_server      = nullptr;
 
 static TrackingServer *tracking_server                   = nullptr;
@@ -84,10 +82,6 @@ namespace {
 /// @see vdot_extension_init
 void initializeExtension(ModuleInitializationLevel p_level) {
   if (p_level == MODULE_INITIALIZATION_LEVEL_SERVERS) {
-    ARKit::_init_arkit_shape_names();
-    UnifiedExpressions::_init_blend_shape_names();
-    UnifiedExpressions::_init_arkit_unified_mappings();
-
     GDREGISTER_ABSTRACT_CLASS(Tracker)
     GDREGISTER_CLASS(FaceTracker)
 
@@ -196,19 +190,18 @@ void initializeExtension(ModuleInitializationLevel p_level) {
     );
 
     // A little hacky, but the best way we were able to find
-    //  to inject a process loop call for the tracking server.
-    //            auto* main_loop =
-    //            godot::Engine::get_singleton()->get_main_loop(); auto*
-    //            scene_tree =
-    //            godot::Object::cast_to<godot::SceneTree>(main_loop);
-    //            scene_tree->connect("process_frame",
-    //            godot::Callable(tracking_server,
-    //            "_process"));
-
+    // to inject a process loop call for the tracking server.
+    // clang-format off
+    //   auto* main_loop = godot::Engine::get_singleton()->get_main_loop();
+    //   auto* scene_tree = godot::Object::cast_to<godot::SceneTree>(main_loop);
+    //   scene_tree->connect("process_frame", godot::Callable(tracking_server, "_process"));
+    // clang-format on
     // ====================
     // Live2D Models
 
-    csm_options.LogFunction = cubism_output;
+    csm_options.LogFunction = [](char const *msg) {
+      godot::UtilityFunctions::printraw(msg);
+    };
 #ifdef DEBUG_ENABLED
     csm_options
       .LoggingLevel = Csm::CubismFramework::Option::LogLevel::LogLevel_Verbose;
