@@ -38,32 +38,13 @@ project(vdot
   LANGUAGES CXX
 )
 
-# ========================== godot-cpp ========================== #
-
-# godot-cpp
-# From here: https://github.com/godotengine/godot-cpp
-if (NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/extern/godot-cpp")
-  message(FATAL_ERROR
-    "[${PROJECT_NAME}] The godot-cpp submodule was not downloaded. "
-    "Please update submodules: git submodule update --init --recursive."
-  )
-endif()
-
-set(GODOTCPP_USE_HOT_RELOAD OFF CACHE BOOL "" FORCE)
-add_subdirectory(extern/godot-cpp SYSTEM)
-set_target_properties(godot-cpp PROPERTIES CXX_VISIBILITY_PRESET hidden)
-
-list(APPEND CMAKE_MODULE_PATH ${godot-cpp_SOURCE_DIR}/cmake)
-include(GodotCPPModule)
-
-get_target_property(GODOTCPP_SUFFIX godot::cpp GODOTCPP_SUFFIX)
-get_target_property(GODOTCPP_PLATFORM godot::cpp GODOTCPP_PLATFORM)
+add_subdirectory(extern)
 
 # ========================= cubism-sdk ========================= #
 # From here: https://github.com/Live2D/CubismNativeFramework
 # Set directory paths.
 
-include(cmake/CubismSDK.cmake)
+include(CubismSDK)
 
 # ========================= main target ========================= #
 
@@ -72,10 +53,11 @@ add_library(${PROJECT_NAME} SHARED)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
 
-message( STATUS "Building ${PROJECT_NAME} for ${LIB_ARCH} on ${CMAKE_SYSTEM_NAME}")
+message(STATUS "Building ${PROJECT_NAME} for ${LIB_ARCH} on ${CMAKE_SYSTEM_NAME}")
 
 # BUILD_OUTPUT_DIR is where we put the resulting library (in the build directory)
 set(BUILD_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/out/${PROJECT_NAME}")
+file(REMOVE_RECURSE ${BUILD_OUTPUT_DIR})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
   CXX_VISIBILITY_PRESET hidden
@@ -87,11 +69,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
   LIBRARY_OUTPUT_DIRECTORY "${BUILD_OUTPUT_DIR}/bin/${GODOTCPP_PLATFORM}"
 )
 
-target_link_libraries(${PROJECT_NAME}
-  PRIVATE
-    godot-cpp
-    Framework # CubismSDK
-)
+target_link_libraries(${PROJECT_NAME} PRIVATE vdot::extern Framework)
 
 # Copy over additional files from the support_files directory
 add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
@@ -113,9 +91,9 @@ include( CompilerWarnings )
 add_subdirectory( src )
 
 # Install library, extension file, and support files in ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
-set( INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/" )
+set(INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}/" )
 
-message( STATUS "Install directory: ${INSTALL_DIR}")
+message(STATUS "Install directory: ${INSTALL_DIR}")
 
 install(TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION ${INSTALL_DIR}/${GODOTCPP_PLATFORM}
@@ -131,7 +109,6 @@ add_subdirectory(templates)
 
 include(ccache)
 include(ClangFormat)
-
 
 if (PROJECT_IS_TOP_LEVEL AND UNIX)
   execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink
